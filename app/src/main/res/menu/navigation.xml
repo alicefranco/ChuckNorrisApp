@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_facts"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_fact"
         android:title="Facts"/>
 
     <item
         android:id="@+id/navigation_categories"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_categories"
         android:title="Categories"/>
 
     <item
         android:id="@+id/navigation_my_facts"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_fave"
         android:title="My facts"/>
 
 </menu>
