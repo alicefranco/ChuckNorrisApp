@@ -12,7 +12,7 @@ interface ApiService {
     @GET("jokes/random")
     fun getJokeByCategory(@Query("category") category: String): Call<Joke>
 
-    @GET("categories")
+    @GET("jokes/categories")
     fun getCategories(): Call<List<String>>
 
     companion object {

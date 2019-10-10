@@ -1,6 +1,7 @@
 package br.pprojects.chucknorrisapp
 
 import android.app.Application
+import br.pprojects.chucknorrisapp.di.categoryModule
 import br.pprojects.chucknorrisapp.di.jokeModule
 import br.pprojects.chucknorrisapp.di.networkModule
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +19,8 @@ class ChuckNorrisApplication : Application() {
             modules(
                 listOf(
                     networkModule,
-                    jokeModule
+                    jokeModule,
+                    categoryModule
                 )
             )
         }

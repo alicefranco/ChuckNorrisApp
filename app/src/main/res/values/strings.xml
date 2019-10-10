@@ -5,4 +5,5 @@
     <string name="joke_subject">joke subject</string>
     <string name="error">Error</string>
     <string name="no_facts">There are no facts to be shown yet. Type the category and hit the search button to find some.</string>
+    <string name="categories">Categories</string>
 </resources>

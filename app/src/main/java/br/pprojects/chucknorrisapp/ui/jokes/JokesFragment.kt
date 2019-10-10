@@ -13,6 +13,7 @@ import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.NetworkState
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
+import br.pprojects.chucknorrisapp.util.hideKeyboard
 import br.pprojects.chucknorrisapp.util.visible
 import kotlinx.android.synthetic.main.fragment_jokes.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,14 +38,17 @@ class JokesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iv_search.setOnClickListener {
-            jokesViewModel.getJokeByCategory(et_search.text.toString())
+            jokesViewModel.searchJokeByCategory(et_search.text.toString())
+            et_search.hideKeyboard()
         }
+
+        layout_facts.setOnClickListener { et_search.hideKeyboard() }
 
         iv_dismiss.setOnClickListener {
             et_search.text.clear()
         }
 
-        jokesViewModel.loading.observe(this, Observer {
+        jokesViewModel.getLoading().observe(this, Observer {
             when (it) {
                 NetworkState.DONE,
                 NetworkState.NO_CONNECTION,
@@ -57,13 +61,13 @@ class JokesFragment : Fragment() {
             }
         })
 
-        jokesViewModel.error.observe(this, Observer { error ->
+        jokesViewModel.getError().observe(this, Observer { error ->
             if (error.isNotEmpty()) {
                 context?.let { createDialog(it, getString(R.string.error), error) }
             }
         })
 
-        jokesViewModel.joke.observe(this, Observer { joke ->
+        jokesViewModel.getJoke().observe(this, Observer { joke ->
             setupRecycler()
             if (!joke.value.isNullOrEmpty()) {
                 adapter.setJokes(listOf(joke))
