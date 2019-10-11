@@ -1,5 +1,6 @@
 package br.pprojects.chucknorrisapp.data.repository
 
+import br.pprojects.chucknorrisapp.data.database.JokesDao
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.ResultAPI
 import br.pprojects.chucknorrisapp.data.network.ApiService
@@ -22,6 +23,7 @@ class JokesRepositoryImpl(private val apiService: ApiService) : JokesRepository,
 
     override suspend fun getJokeByCategory(category: String): ResultAPI<Joke> {
         val response = safeCall { apiService.getJokeByCategory(category) }
+
         return response.result()
     }
 

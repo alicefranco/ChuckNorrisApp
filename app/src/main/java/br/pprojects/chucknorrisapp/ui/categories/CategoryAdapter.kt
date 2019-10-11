@@ -24,9 +24,9 @@ class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<Categ
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val joke = categories?.get(position)
-        joke?.let { itemJoke ->
-            holder.bind(itemJoke)
+        val category = categories?.get(position)
+        category?.let { itemCategory ->
+            holder.bind(itemCategory)
         }
     }
 
@@ -38,7 +38,10 @@ class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<Categ
         private val categoryTextView: TextView = item.tv_category
 
         fun bind(category: String) {
-            categoryTextView.text = category
+            if (category.isNullOrEmpty())
+                categoryTextView.text = "uncategorized"
+            else
+                categoryTextView.text = category
         }
     }
 }

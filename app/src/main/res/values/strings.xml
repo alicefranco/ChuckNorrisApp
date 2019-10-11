@@ -4,6 +4,8 @@
     <string name="joke_url">joke url</string>
     <string name="joke_subject">joke subject</string>
     <string name="error">Error</string>
-    <string name="no_facts">There are no facts to be shown yet. Type the category and hit the search button to find some.</string>
+    <string name="no_jokes">There are no facts to be shown yet. Tap in this text to search Chuck Norrisfacts.</string>
     <string name="categories">Categories</string>
+    <string name="my_jokes">My Jokes</string>
+    <string name="uncategorized">uncategorized</string>
 </resources>
