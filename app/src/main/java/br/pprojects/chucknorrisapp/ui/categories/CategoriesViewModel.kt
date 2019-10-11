@@ -8,13 +8,19 @@ import br.pprojects.chucknorrisapp.data.repository.JokesRepository
 import br.pprojects.chucknorrisapp.ui.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class CategoriesViewModel(private val repository: JokesRepository) : BaseViewModel() {
+class CategoriesViewModel(private val repository: JokesRepository) : BaseViewModel(), CoroutineScope {
     private var categories: MutableLiveData<List<String>> = MutableLiveData()
+    private val job = SupervisorJob()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     fun searchCategories() {
-        CoroutineScope(Dispatchers.Main).launch {
+        launch {
             loading.value = NetworkState.LOADING
             error.value = ""
             val response = repository.getCategories()
