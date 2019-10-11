@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.pprojects.chucknorrisapp.R
 import com.bumptech.glide.Glide
@@ -53,14 +54,18 @@ class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapt
             Glide.with(context).load(joke.iconUrl).into(jokeImageView)
 
             var jokeCategoryList = ""
-            joke.categories.forEach {
-                if(jokeCategoryList.isEmpty())
-                    jokeCategoryList = it
-                else
-                    jokeCategoryList = jokeCategoryList + "," + it
-            }
 
-            jokeCategory.text = jokeCategoryList
+            if (joke.categories.isEmpty())
+                jokeCategory.text = context.getString(R.string.uncategorized)
+            else {
+                joke.categories.forEach {
+                    if(jokeCategoryList.isEmpty())
+                        jokeCategoryList = it
+                    else
+                        jokeCategoryList = jokeCategoryList + "," + it
+                }
+                jokeCategory.text = jokeCategoryList
+            }
             jokeTextView.text = joke.value
 
             shareImageView.setOnClickListener {

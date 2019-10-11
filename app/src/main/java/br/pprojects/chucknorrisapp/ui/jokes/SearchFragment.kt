@@ -18,8 +18,8 @@ import br.pprojects.chucknorrisapp.util.visible
 import kotlinx.android.synthetic.main.fragment_jokes.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class JokesFragment : Fragment() {
-    private val jokesViewModel: JokesViewModel by viewModel()
+class SearchFragment : Fragment() {
+    private val searchViewModel: SearchViewModel by viewModel()
     private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var adapter: JokeAdapter
 
@@ -37,8 +37,11 @@ class JokesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        context?.let { createDialog(it, "Hi, there!", getString(R.string.no_jokes)) }
+
         iv_search.setOnClickListener {
-            jokesViewModel.searchJokeByCategory(et_search.text.toString())
+            searchViewModel.searchJokeByCategory(et_search.text.toString())
             et_search.hideKeyboard()
         }
 
@@ -48,7 +51,11 @@ class JokesFragment : Fragment() {
             et_search.text.clear()
         }
 
-        jokesViewModel.getLoading().observe(this, Observer {
+        fab_random_fact.setOnClickListener {
+            searchViewModel.searchRandomJoke()
+        }
+
+        searchViewModel.getLoading().observe(this, Observer {
             when (it) {
                 NetworkState.DONE,
                 NetworkState.NO_CONNECTION,
@@ -61,13 +68,13 @@ class JokesFragment : Fragment() {
             }
         })
 
-        jokesViewModel.getError().observe(this, Observer { error ->
+        searchViewModel.getError().observe(this, Observer { error ->
             if (error.isNotEmpty()) {
                 context?.let { createDialog(it, getString(R.string.error), error) }
             }
         })
 
-        jokesViewModel.getJoke().observe(this, Observer { joke ->
+        searchViewModel.getJoke().observe(this, Observer { joke ->
             setupRecycler()
             if (!joke.value.isNullOrEmpty()) {
                 adapter.setJokes(listOf(joke))

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_facts"
-        android:icon="@drawable/ic_fact"
+        android:icon="@drawable/ic_fave"
         android:title="Facts"/>
 
     <item
@@ -12,8 +12,7 @@
         android:title="Categories"/>
 
     <item
-        android:id="@+id/navigation_my_facts"
-        android:icon="@drawable/ic_fave"
-        android:title="My facts"/>
-
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_magnifying_glass"
+        android:title="Search facts"/>
 </menu>

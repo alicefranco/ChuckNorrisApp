@@ -12,8 +12,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import androidx.core.content.ContextCompat.getSystemService
 
-
-
 fun View?.visible() {
     this?.visibility = View.VISIBLE
 }
