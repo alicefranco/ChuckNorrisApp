@@ -17,10 +17,10 @@ class ChuckNorrisApplication : Application() {
             modules(
                 listOf(
                     networkModule,
-                    jokeModule,
+                    searchModule,
                     categoryModule,
                     databaseModule,
-                    myJokesModule
+                    jokesModule
                 )
             )
         }
