@@ -1,11 +1,10 @@
 package br.pprojects.chucknorrisapp.data.repository
 
-import br.pprojects.chucknorrisapp.data.database.JokesDao
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.ResultAPI
 import br.pprojects.chucknorrisapp.data.network.ApiService
-import br.pprojects.chucknorrisapp.utils.result
-import br.pprojects.chucknorrisapp.utils.safeCall
+import br.pprojects.chucknorrisapp.util.result
+import br.pprojects.chucknorrisapp.util.safeCall
 import org.koin.core.KoinComponent
 
 interface JokesRepository {
