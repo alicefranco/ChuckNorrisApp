@@ -6,7 +6,7 @@ import br.pprojects.chucknorrisapp.ui.jokes.JokesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val myJokesModule = module {
+val jokesModule = module {
     viewModel { JokesViewModel(get()) }
 
     single<DatabaseRepository> {
