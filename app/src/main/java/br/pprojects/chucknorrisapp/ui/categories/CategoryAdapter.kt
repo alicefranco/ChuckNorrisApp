@@ -1,6 +1,4 @@
-package br.pprojects.chucknorrisapp.ui
-
-import br.pprojects.chucknorrisapp.data.model.Joke
+package br.pprojects.chucknorrisapp.ui.categories
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.pprojects.chucknorrisapp.R
 import kotlinx.android.synthetic.main.item_category.view.*
 
-class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     private var categories: List<String>? = null
 
     override fun getItemCount(): Int {
@@ -31,18 +29,14 @@ class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<Categ
     }
 
     fun setCategories(categories: List<String>) {
-        this.categories  = categories
+        this.categories = categories
     }
 
     class ViewHolder(item: View, val context: Context) : RecyclerView.ViewHolder(item) {
         private val categoryTextView: TextView = item.tv_category
 
         fun bind(category: String) {
-            if (category.isNullOrEmpty())
-                categoryTextView.text = "uncategorized"
-            else
-                categoryTextView.text = category
+            categoryTextView.text = category
         }
     }
 }
-

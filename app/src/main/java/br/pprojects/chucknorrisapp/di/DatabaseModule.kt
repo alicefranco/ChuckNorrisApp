@@ -2,8 +2,6 @@ package br.pprojects.chucknorrisapp.di
 
 import androidx.room.Room
 import br.pprojects.chucknorrisapp.data.database.AppDatabase
-import br.pprojects.chucknorrisapp.data.database.DatabaseRepository
-import br.pprojects.chucknorrisapp.data.database.DatabaseRepositoryImpl
 import br.pprojects.chucknorrisapp.util.Constants
 import org.koin.dsl.module
 

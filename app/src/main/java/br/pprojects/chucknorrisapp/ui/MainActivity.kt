@@ -1,11 +1,12 @@
-package br.pprojects.chucknorrisapp
+package br.pprojects.chucknorrisapp.ui
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import br.pprojects.chucknorrisapp.ui.SearchFragment
+import br.pprojects.chucknorrisapp.R
+import br.pprojects.chucknorrisapp.ui.search.SearchFragment
 import br.pprojects.chucknorrisapp.ui.categories.CategoriesFragment
-import br.pprojects.chucknorrisapp.ui.myJokes.JokesFragment
+import br.pprojects.chucknorrisapp.ui.jokes.JokesFragment
 import br.pprojects.chucknorrisapp.util.addFragment
 import br.pprojects.chucknorrisapp.util.replaceFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

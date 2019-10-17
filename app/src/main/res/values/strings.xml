@@ -4,8 +4,10 @@
     <string name="joke_url">joke url</string>
     <string name="joke_subject">joke subject</string>
     <string name="error">Error</string>
-    <string name="no_jokes">There are no facts to be shown yet. Tap in this text to search Chuck Norrisfacts.</string>
+    <string name="no_jokes">There are no facts to be shown yet. The facts from your current search will be shown on this screen.</string>
     <string name="categories">Categories</string>
     <string name="my_jokes">My Jokes</string>
     <string name="uncategorized">uncategorized</string>
+    <string name="no_jokes_title">Hi, there!</string>
+    <string name="no_jokes_main_screen">There are no jokes here yet. To search for a joke or ramdomly find one, go to the search tab. You can also do this by clicking on this message.</string>
 </resources>

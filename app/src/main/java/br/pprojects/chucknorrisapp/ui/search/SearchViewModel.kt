@@ -1,14 +1,13 @@
-package br.pprojects.chucknorrisapp.ui
+package br.pprojects.chucknorrisapp.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import br.pprojects.chucknorrisapp.data.database.DatabaseRepository
-import br.pprojects.chucknorrisapp.data.database.JokesDao
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.NetworkState
 import br.pprojects.chucknorrisapp.data.model.ResultAPI
 import br.pprojects.chucknorrisapp.data.repository.JokesRepository
+import br.pprojects.chucknorrisapp.ui.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -22,7 +21,6 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-
     fun searchJokeByCategory(category: String) {
         CoroutineScope(Dispatchers.Main).launch {
             loading.value = NetworkState.LOADING
@@ -32,6 +30,7 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
                 is ResultAPI.Success -> {
                     loading.value = NetworkState.DONE
                     joke.value = response.data
+                    response.data.categories = checkUncategorized(response.data.categories)
                     databaseRepository.insertJoke(response.data)
                 }
                 is ResultAPI.NotFound -> {
@@ -54,6 +53,8 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
             when (response) {
                 is ResultAPI.Success -> {
                     loading.value = NetworkState.DONE
+                    response.data.categories = checkUncategorized(response.data.categories)
+                    response.data.largeJoke = checkSize(response.data.value)
                     joke.value = response.data
                     databaseRepository.insertJoke(response.data)
                 }
@@ -71,5 +72,16 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
 
     fun getJoke(): LiveData<Joke> {
         return joke
+    }
+
+    private fun checkUncategorized(categories: List<String>): List<String> {
+        if (categories.isNullOrEmpty())
+            return listOf("uncategorized")
+        else
+            return categories
+    }
+
+    private fun checkSize(value: String): Boolean {
+        return value.length > 80
     }
 }

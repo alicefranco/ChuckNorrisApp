@@ -10,7 +10,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "br.pprojects.chucknorrisapp"
-        minSdkVersion 28
+        minSdkVersion 27
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -51,14 +51,14 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.10.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.cardview:cardview:$appcompat_version"
+    implementation "androidx.cardview:cardview:$appcompat_version" 
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation 'com.google.android.material:material:1.0.0'
-
+    implementation "com.google.android.material:material:$material_version"
 
     implementation "androidx.core:core-ktx:$androidx_core_version"
 
@@ -76,13 +76,14 @@ dependencies {
 
     implementation "androidx.paging:paging-runtime:$paging_version"
 
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
     ktlint "com.github.shyiko:ktlint:$ktlint_version"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.1.0'
 
 }

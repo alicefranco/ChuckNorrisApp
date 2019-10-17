@@ -3,18 +3,18 @@ package br.pprojects.chucknorrisapp.ui
 import br.pprojects.chucknorrisapp.data.model.Joke
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.pprojects.chucknorrisapp.R
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_joke.view.*
 
-class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapter.ViewHolder>(){
+class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapter.ViewHolder>() {
     private var shareClick: (joke: Joke) -> Unit = {}
     private var jokes: List<Joke>? = null
 
@@ -36,7 +36,7 @@ class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapt
     }
 
     fun setJokes(jokes: List<Joke>) {
-        this.jokes  = jokes
+        this.jokes = jokes
     }
 
     fun setShareClick(itemClick: (joke: Joke) -> Unit) {
@@ -55,18 +55,24 @@ class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapt
 
             var jokeCategoryList = ""
 
-            if (joke.categories.isEmpty())
-                jokeCategory.text = context.getString(R.string.uncategorized)
-            else {
-                joke.categories.forEach {
-                    if(jokeCategoryList.isEmpty())
-                        jokeCategoryList = it
-                    else
-                        jokeCategoryList = jokeCategoryList + "," + it
-                }
-                jokeCategory.text = jokeCategoryList
+            joke.categories.forEach {
+                if (jokeCategoryList.isEmpty())
+                    jokeCategoryList = it
+                else
+                    jokeCategoryList = jokeCategoryList + "," + it
             }
+            jokeCategory.text = jokeCategoryList
             jokeTextView.text = joke.value
+            if (joke.largeJoke)
+                jokeTextView.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    context.resources.getDimension(R.dimen.smaller_font)
+                )
+            else
+                jokeTextView.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    context.resources.getDimension(R.dimen.bigger_font)
+                )
 
             shareImageView.setOnClickListener {
                 shareClick(joke)
@@ -74,4 +80,3 @@ class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapt
         }
     }
 }
-

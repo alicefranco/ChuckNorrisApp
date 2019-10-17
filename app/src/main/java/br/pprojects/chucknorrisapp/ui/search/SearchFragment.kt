@@ -1,4 +1,4 @@
-package br.pprojects.chucknorrisapp.ui
+package br.pprojects.chucknorrisapp.ui.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.NetworkState
+import br.pprojects.chucknorrisapp.ui.JokeAdapter
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
 import br.pprojects.chucknorrisapp.util.hideKeyboard
 import br.pprojects.chucknorrisapp.util.visible
-import kotlinx.android.synthetic.main.fragment_jokes.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
@@ -32,13 +33,13 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_jokes, container, false)
+        return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.let { createDialog(it, "Hi, there!", getString(R.string.no_jokes)) }
+        context?.let { createDialog(it, getString(R.string.no_jokes_title), getString(R.string.no_jokes)) }
 
         iv_search.setOnClickListener {
             searchViewModel.searchJokeByCategory(et_search.text.toString())
