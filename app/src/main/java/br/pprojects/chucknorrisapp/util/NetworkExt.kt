@@ -1,4 +1,4 @@
-package br.pprojects.chucknorrisapp.utils
+package br.pprojects.chucknorrisapp.util
 
 import br.pprojects.chucknorrisapp.data.model.ResultAPI
 import br.pprojects.chucknorrisapp.data.model.ServerError
@@ -21,7 +21,7 @@ fun <T : Any> Response<T>.result(): ResultAPI<T> {
             return ResultAPI.Success(it)
         }
         return ResultAPI.InternalError(IOException("Error"))
-    } else  if (this.code() == 404) {
+    } else if (this.code() == 404) {
         return ResultAPI.NotFound()
     }
     return try {

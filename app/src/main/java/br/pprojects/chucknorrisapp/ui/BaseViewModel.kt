@@ -9,7 +9,6 @@ open class BaseViewModel : ViewModel() {
     protected var loading: MutableLiveData<NetworkState> = MutableLiveData()
     protected var error: MutableLiveData<String> = MutableLiveData()
 
-
     fun getLoading(): LiveData<NetworkState> {
         return loading
     }

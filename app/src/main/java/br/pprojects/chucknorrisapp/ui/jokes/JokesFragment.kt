@@ -1,4 +1,4 @@
-package br.pprojects.chucknorrisapp.ui.myJokes
+package br.pprojects.chucknorrisapp.ui.jokes
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,8 +15,8 @@ import br.pprojects.chucknorrisapp.ui.JokeAdapter
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
 import br.pprojects.chucknorrisapp.util.visible
-import kotlinx.android.synthetic.main.fragment_jokes.loading_layout
-import kotlinx.android.synthetic.main.fragment_my_jokes.*
+import kotlinx.android.synthetic.main.fragment_search.loading_layout
+import kotlinx.android.synthetic.main.fragment_jokes.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JokesFragment : Fragment() {
@@ -39,7 +39,7 @@ class JokesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_jokes, container, false)
+        return inflater.inflate(R.layout.fragment_jokes, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,9 +71,9 @@ class JokesFragment : Fragment() {
         })
 
         jokesViewModel.getMyJokes().observe(this, Observer { jokes ->
-            tv_no_jokes.gone()
-            setupRecycler()
             if (!jokes.isNullOrEmpty()) {
+                tv_no_jokes.gone()
+                setupRecycler()
                 adapter.setJokes(jokes)
             }
         })

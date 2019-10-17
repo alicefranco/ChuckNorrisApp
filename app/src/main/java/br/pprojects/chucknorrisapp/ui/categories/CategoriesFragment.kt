@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.NetworkState
-import br.pprojects.chucknorrisapp.ui.CategoryAdapter
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
 import br.pprojects.chucknorrisapp.util.visible

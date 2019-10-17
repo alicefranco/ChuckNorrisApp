@@ -44,5 +44,4 @@ class CategoriesViewModel(private val repository: JokesRepository) : BaseViewMod
     fun getCategories(): LiveData<List<String>> {
         return categories
     }
-
 }

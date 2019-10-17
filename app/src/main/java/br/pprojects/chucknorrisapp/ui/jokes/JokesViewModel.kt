@@ -1,4 +1,4 @@
-package br.pprojects.chucknorrisapp.ui.myJokes
+package br.pprojects.chucknorrisapp.ui.jokes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
