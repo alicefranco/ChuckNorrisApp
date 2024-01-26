@@ -9,10 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.NetworkState
+import br.pprojects.chucknorrisapp.databinding.FragmentCategoriesBinding
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
 import br.pprojects.chucknorrisapp.util.visible
-import kotlinx.android.synthetic.main.fragment_categories.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoriesFragment : Fragment() {
@@ -20,8 +20,10 @@ class CategoriesFragment : Fragment() {
     private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var adapter: CategoryAdapter
 
+    private var _binding: FragmentCategoriesBinding? = null
+    private val binding get() = _binding!!
     companion object {
-        val tag = "CATEGORIES_FRAGMENTa"
+        val tag = "CATEGORIES_FRAGMENT"
     }
 
     override fun onCreateView(
@@ -29,7 +31,8 @@ class CategoriesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,10 +44,10 @@ class CategoriesFragment : Fragment() {
                 NetworkState.DONE,
                 NetworkState.NO_CONNECTION,
                 NetworkState.ERROR -> {
-                    loading_layout.gone()
+                    binding.loadingLayout.gone()
                 }
                 NetworkState.LOADING -> {
-                    loading_layout.visible()
+                    binding.loadingLayout.visible()
                 }
             }
         })
@@ -67,7 +70,12 @@ class CategoriesFragment : Fragment() {
 
     private fun setupRecycler() {
         context?.let { adapter = CategoryAdapter(it) }
-        rv_categories.layoutManager = linearLayoutManager
-        rv_categories.adapter = adapter
+        binding.rvCategories.layoutManager = linearLayoutManager
+        binding.rvCategories.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -11,18 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.NetworkState
+import br.pprojects.chucknorrisapp.databinding.FragmentSearchBinding
 import br.pprojects.chucknorrisapp.ui.JokeAdapter
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
 import br.pprojects.chucknorrisapp.util.hideKeyboard
 import br.pprojects.chucknorrisapp.util.visible
-import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
     private val searchViewModel: SearchViewModel by viewModel()
     private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var adapter: JokeAdapter
+
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         val tag = "JOKES_FRAGMENT"
@@ -33,7 +36,8 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,18 +45,18 @@ class SearchFragment : Fragment() {
 
         context?.let { createDialog(it, getString(R.string.no_jokes_title), getString(R.string.no_jokes)) }
 
-        iv_search.setOnClickListener {
-            searchViewModel.searchJokeByCategory(et_search.text.toString())
-            et_search.hideKeyboard()
+        binding.ivSearch.setOnClickListener {
+            searchViewModel.searchJokeByCategory(binding.etSearch.text.toString())
+            binding.etSearch.hideKeyboard()
         }
 
-        layout_facts.setOnClickListener { et_search.hideKeyboard() }
+        binding.layoutFacts.setOnClickListener { binding.etSearch.hideKeyboard() }
 
-        iv_dismiss.setOnClickListener {
-            et_search.text.clear()
+        binding.ivDismiss.setOnClickListener {
+            binding.etSearch.text.clear()
         }
 
-        fab_random_fact.setOnClickListener {
+        binding.fabRandomFact.setOnClickListener {
             searchViewModel.searchRandomJoke()
         }
 
@@ -61,10 +65,10 @@ class SearchFragment : Fragment() {
                 NetworkState.DONE,
                 NetworkState.NO_CONNECTION,
                 NetworkState.ERROR -> {
-                    loading_layout.gone()
+                    binding.loadingLayout.gone()
                 }
                 NetworkState.LOADING -> {
-                    loading_layout.visible()
+                    binding.loadingLayout.visible()
                 }
             }
         })
@@ -88,8 +92,8 @@ class SearchFragment : Fragment() {
     private fun setupRecycler() {
         context?.let { adapter = JokeAdapter(it) }
         adapter.setShareClick(shareClick)
-        rv_facts.layoutManager = linearLayoutManager
-        rv_facts.adapter = adapter
+        binding.rvFacts.layoutManager = linearLayoutManager
+        binding.rvFacts.adapter = adapter
     }
 
     private val shareClick: (joke: Joke) -> Unit = {
@@ -103,5 +107,10 @@ class SearchFragment : Fragment() {
         activity?.packageManager?.let {
             startActivity(intent)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

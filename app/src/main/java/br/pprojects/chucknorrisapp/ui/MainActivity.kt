@@ -4,21 +4,23 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import br.pprojects.chucknorrisapp.R
+import br.pprojects.chucknorrisapp.databinding.ActivityMainBinding
 import br.pprojects.chucknorrisapp.ui.search.SearchFragment
 import br.pprojects.chucknorrisapp.ui.categories.CategoriesFragment
 import br.pprojects.chucknorrisapp.ui.jokes.JokesFragment
 import br.pprojects.chucknorrisapp.util.addFragment
 import br.pprojects.chucknorrisapp.util.replaceFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        bottom_navigation.setOnNavigationItemSelectedListener(this)
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
 
         val fragment = JokesFragment()
         addFragment(fragment, R.id.fl_container, fragment.tag ?: "", true)
@@ -28,15 +30,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (item.getItemId()) {
             R.id.navigation_facts -> {
                 val fragment = JokesFragment.newInstance(openSearchFragment)
-                replaceFragment(fragment, R.id.fl_container, fragment.tag ?: "", true)
+                replaceFragment(fragment, R.id.fl_container, fragment.tag ?: JokesFragment.tag, true)
             }
             R.id.navigation_categories -> {
                 val fragment = CategoriesFragment()
-                replaceFragment(fragment, R.id.fl_container, fragment.tag ?: "", true)
+                replaceFragment(fragment, R.id.fl_container, fragment.tag ?: CategoriesFragment.tag, true)
             }
             R.id.navigation_search -> {
                 val fragment = SearchFragment()
-                replaceFragment(fragment, R.id.fl_container, fragment.tag ?: "", true)
+                replaceFragment(fragment, R.id.fl_container, fragment.tag ?: SearchFragment.tag, true)
             }
         }
         return true

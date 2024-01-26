@@ -41,6 +41,9 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
                     loading.value = NetworkState.NO_CONNECTION
                     error.value = "Please, check your internet connection and try again."
                 }
+                else -> {
+                    //TODO
+                }
             }
         }
     }
@@ -65,6 +68,9 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
                 is ResultAPI.InternalError -> {
                     loading.value = NetworkState.NO_CONNECTION
                     error.value = "Please, check your internet connection and try again."
+                }
+                else -> {
+                    //TODO
                 }
             }
         }
