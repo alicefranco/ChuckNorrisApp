@@ -2,12 +2,9 @@ package br.pprojects.chucknorrisapp.ui.categories
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.pprojects.chucknorrisapp.R
-import kotlinx.android.synthetic.main.item_category.view.*
+import br.pprojects.chucknorrisapp.databinding.ItemCategoryBinding
 
 class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     private var categories: List<String>? = null
@@ -17,8 +14,9 @@ class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<Categ
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
-        return ViewHolder(view, context)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemCategoryBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -32,11 +30,10 @@ class CategoryAdapter(private val context: Context) : RecyclerView.Adapter<Categ
         this.categories = categories
     }
 
-    class ViewHolder(item: View, val context: Context) : RecyclerView.ViewHolder(item) {
-        private val categoryTextView: TextView = item.tv_category
+    class ViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(category: String) {
-            categoryTextView.text = category
+            binding.tvCategory.text = category
         }
     }
 }

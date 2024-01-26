@@ -11,19 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.data.model.NetworkState
+import br.pprojects.chucknorrisapp.databinding.FragmentJokesBinding
 import br.pprojects.chucknorrisapp.ui.JokeAdapter
 import br.pprojects.chucknorrisapp.util.createDialog
 import br.pprojects.chucknorrisapp.util.gone
 import br.pprojects.chucknorrisapp.util.visible
-import kotlinx.android.synthetic.main.fragment_search.loading_layout
-import kotlinx.android.synthetic.main.fragment_jokes.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JokesFragment : Fragment() {
     private val jokesViewModel: JokesViewModel by viewModel()
-    private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var adapter: JokeAdapter
+    private val linearLayoutManager = LinearLayoutManager(context)
     private var openSearchFragment: () -> Unit = {}
+
+    private var _binding: FragmentJokesBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         val tag = "MY_JOKES_FRAGMENT"
@@ -39,13 +41,15 @@ class JokesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_jokes, container, false)
+        _binding = FragmentJokesBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_no_jokes.setOnClickListener {
+        binding.tvNoJokes.setOnClickListener {
             openSearchFragment()
         }
 
@@ -56,10 +60,10 @@ class JokesFragment : Fragment() {
                 NetworkState.DONE,
                 NetworkState.NO_CONNECTION,
                 NetworkState.ERROR -> {
-                    loading_layout.gone()
+                    binding.loadingLayout.gone()
                 }
                 NetworkState.LOADING -> {
-                    loading_layout.visible()
+                    binding.loadingLayout.visible()
                 }
             }
         })
@@ -72,7 +76,7 @@ class JokesFragment : Fragment() {
 
         jokesViewModel.getMyJokes().observe(this, Observer { jokes ->
             if (!jokes.isNullOrEmpty()) {
-                tv_no_jokes.gone()
+                binding.tvNoJokes.gone()
                 setupRecycler()
                 adapter.setJokes(jokes)
             }
@@ -84,8 +88,8 @@ class JokesFragment : Fragment() {
     private fun setupRecycler() {
         context?.let { adapter = JokeAdapter(it) }
         adapter.setShareClick(shareClick)
-        rv_my_jokes.layoutManager = linearLayoutManager
-        rv_my_jokes.adapter = adapter
+        binding.rvMyJokes.layoutManager = linearLayoutManager
+        binding.rvMyJokes.adapter = adapter
     }
 
     private val shareClick: (joke: Joke) -> Unit = {
@@ -99,5 +103,10 @@ class JokesFragment : Fragment() {
         activity?.packageManager?.let {
             startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

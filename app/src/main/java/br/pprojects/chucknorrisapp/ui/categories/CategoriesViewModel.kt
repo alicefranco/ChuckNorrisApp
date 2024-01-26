@@ -37,6 +37,9 @@ class CategoriesViewModel(private val repository: JokesRepository) : BaseViewMod
                     loading.value = NetworkState.NO_CONNECTION
                     error.value = "Please, check your internet connection and try again."
                 }
+                else -> {
+                    //TODO
+                }
             }
         }
     }
