@@ -5,11 +5,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
         applicationId "br.pprojects.chucknorrisapp"
         minSdkVersion 27
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -65,7 +65,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.cardview:cardview:$appcompat_version" 
+    implementation "androidx.cardview:cardview:$cardview_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.google.android.material:material:$material_version"
 
@@ -76,6 +76,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
@@ -89,11 +90,10 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-    implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
     ktlint "com.github.shyiko:ktlint:$ktlint_version"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.1.0'
 
 }
