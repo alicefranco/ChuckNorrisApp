@@ -2,21 +2,20 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.9.22' //updated
-        constraintLayoutVersion = '2.1.4' //updated
-        retrofit_version = '2.9.0' //updated
-        koin_version = '2.0.1'
-        lifecycle_version = '2.7.0' //updated
-        coroutines_version = '1.7.3' //updated
-        androidx_core_version = '1.12.0' //updated
-        okhttp_version = '4.12.0' //updated
-        appcompat_version = '1.6.1' //updated
-        cardview_version = '1.0.0' //updated
-        room_version = '2.6.1' //updated
-        material_version = '1.11.0' //updated
-        glide_version = '4.8.0'
+        kotlin_version = '1.9.22'
+        constraintLayoutVersion = '2.1.4'
+        retrofit_version = '2.9.0'
+        koin_version = '2.0.1' //outdated
+        lifecycle_version = '2.7.0'
+        coroutines_version = '1.7.3'
+        androidx_core_version = '1.12.0'
+        okhttp_version = '4.12.0'
+        appcompat_version = '1.6.1'
+        cardview_version = '1.0.0'
+        room_version = '2.6.1'
+        material_version = '1.11.0'
 
-        paging_version = '3.2.1' //updated
+        paging_version = '3.2.1'
         ktlint_version = '0.29.0'
     }
 
