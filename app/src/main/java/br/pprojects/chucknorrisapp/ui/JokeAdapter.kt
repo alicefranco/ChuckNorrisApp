@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.Joke
 import br.pprojects.chucknorrisapp.databinding.ItemJokeBinding
-import com.bumptech.glide.Glide
 
 class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapter.ViewHolder>() {
     private var shareClick: (joke: Joke) -> Unit = {}
@@ -47,8 +46,6 @@ class JokeAdapter(private val context: Context) : RecyclerView.Adapter<JokeAdapt
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(joke: Joke) {
-
-            Glide.with(context).load(joke.iconUrl).into(binding.ivJoke)
 
             var jokeCategoryList = ""
 
