@@ -11,8 +11,8 @@ class ClientInterceptor {
     }
 
     fun createClient(): OkHttpClient {
-        return OkHttpClient()
-            .newBuilder()
+        return OkHttpClient
+            .Builder()
             .addInterceptor(createInterceptor())
             .build()
     }
