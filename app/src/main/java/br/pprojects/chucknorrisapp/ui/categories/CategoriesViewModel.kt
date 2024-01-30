@@ -38,7 +38,7 @@ class CategoriesViewModel(private val repository: JokesRepository) : BaseViewMod
                     error.value = "Please, check your internet connection and try again."
                 }
                 else -> {
-                    //TODO
+                    // TODO
                 }
             }
         }

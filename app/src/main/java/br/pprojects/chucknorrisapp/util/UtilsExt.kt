@@ -8,8 +8,7 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import java.text.SimpleDateFormat
-import java.util.*
-import androidx.core.content.ContextCompat.getSystemService
+import java.util.Locale
 
 fun View?.visible() {
     this?.visibility = View.VISIBLE

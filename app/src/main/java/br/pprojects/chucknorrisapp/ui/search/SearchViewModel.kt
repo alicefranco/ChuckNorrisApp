@@ -42,7 +42,7 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
                     error.value = "Please, check your internet connection and try again."
                 }
                 else -> {
-                    //TODO
+                    // TODO
                 }
             }
         }
@@ -70,7 +70,7 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
                     error.value = "Please, check your internet connection and try again."
                 }
                 else -> {
-                    //TODO
+                    // TODO
                 }
             }
         }
@@ -81,10 +81,7 @@ class SearchViewModel(private val repository: JokesRepository, private val datab
     }
 
     private fun checkUncategorized(categories: List<String>): List<String> {
-        if (categories.isNullOrEmpty())
-            return listOf("uncategorized")
-        else
-            return categories
+        return categories.ifEmpty { listOf("uncategorized") }
     }
 
     private fun checkSize(value: String): Boolean {
