@@ -1,11 +1,10 @@
 package br.pprojects.chucknorrisapp.data.network
 
 import br.pprojects.chucknorrisapp.util.Constants
-import org.koin.core.KoinComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitManager : KoinComponent {
+class RetrofitManager {
     fun build(): Retrofit {
         val clientInterceptor = ClientInterceptor()
             .createClient()

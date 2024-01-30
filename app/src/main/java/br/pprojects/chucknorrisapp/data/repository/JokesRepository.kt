@@ -5,7 +5,6 @@ import br.pprojects.chucknorrisapp.data.model.ResultAPI
 import br.pprojects.chucknorrisapp.data.network.ApiService
 import br.pprojects.chucknorrisapp.util.result
 import br.pprojects.chucknorrisapp.util.safeCall
-import org.koin.core.KoinComponent
 
 interface JokesRepository {
     suspend fun getRandomJoke(): ResultAPI<Joke>
@@ -13,7 +12,7 @@ interface JokesRepository {
     suspend fun getCategories(): ResultAPI<List<String>>
 }
 
-class JokesRepositoryImpl(private val apiService: ApiService) : JokesRepository, KoinComponent {
+class JokesRepositoryImpl(private val apiService: ApiService) : JokesRepository {
 
     override suspend fun getRandomJoke(): ResultAPI<Joke> {
         val response = safeCall { apiService.getRandomJoke() }
