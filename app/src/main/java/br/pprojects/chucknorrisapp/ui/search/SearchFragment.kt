@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.Joke
@@ -35,7 +34,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater)
         return binding.root
     }
@@ -60,31 +59,31 @@ class SearchFragment : Fragment() {
             searchViewModel.searchRandomJoke()
         }
 
-        searchViewModel.getLoading().observe(this, Observer {
+        searchViewModel.getLoading().observe(viewLifecycleOwner) {
             when (it) {
                 NetworkState.DONE,
-                NetworkState.NO_CONNECTION,
                 NetworkState.ERROR -> {
                     binding.loadingLayout.gone()
                 }
                 NetworkState.LOADING -> {
                     binding.loadingLayout.visible()
                 }
+                else -> {}
             }
-        })
+        }
 
-        searchViewModel.getError().observe(this, Observer { error ->
+        searchViewModel.getError().observe(viewLifecycleOwner) { error ->
             if (error.isNotEmpty()) {
                 context?.let { createDialog(it, getString(R.string.error), error) }
             }
-        })
+        }
 
-        searchViewModel.getJoke().observe(this, Observer { joke ->
+        searchViewModel.getJoke().observe(viewLifecycleOwner) { joke ->
             setupRecycler()
-            if (!joke.value.isNullOrEmpty()) {
+            if (joke.value.isNotEmpty()) {
                 adapter.setJokes(listOf(joke))
             }
-        })
+        }
 
         setupRecycler()
     }

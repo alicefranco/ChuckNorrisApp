@@ -90,6 +90,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-    ktlint "com.github.shyiko:ktlint:$ktlint_version"
+    ktlint "com.github.shyiko:ktlint:$ktlint_version" // deprecated
 
 }

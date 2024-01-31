@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.NetworkState
@@ -30,7 +29,7 @@ class CategoriesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,31 +38,31 @@ class CategoriesFragment : Fragment() {
 
         categoriesViewModel.searchCategories()
 
-        categoriesViewModel.getLoading().observe(this, Observer {
+        categoriesViewModel.getLoading().observe(viewLifecycleOwner) {
             when (it) {
                 NetworkState.DONE,
-                NetworkState.NO_CONNECTION,
                 NetworkState.ERROR -> {
                     binding.loadingLayout.gone()
                 }
                 NetworkState.LOADING -> {
                     binding.loadingLayout.visible()
                 }
+                else -> {}
             }
-        })
+        }
 
-        categoriesViewModel.getError().observe(this, Observer { error ->
+        categoriesViewModel.getError().observe(viewLifecycleOwner) { error ->
             if (error.isNotEmpty()) {
                 context?.let { createDialog(it, getString(R.string.error), error) }
             }
-        })
+        }
 
-        categoriesViewModel.getCategories().observe(this, Observer { categories ->
+        categoriesViewModel.getCategories().observe(viewLifecycleOwner) { categories ->
             setupRecycler()
             if (!categories.isNullOrEmpty()) {
                 adapter.setCategories(categories)
             }
-        })
+        }
 
         setupRecycler()
     }

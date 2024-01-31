@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.pprojects.chucknorrisapp.R
 import br.pprojects.chucknorrisapp.data.model.Joke
@@ -40,7 +39,7 @@ class JokesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentJokesBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -55,32 +54,32 @@ class JokesFragment : Fragment() {
 
         jokesViewModel.searchMyJokes()
 
-        jokesViewModel.getLoading().observe(this, Observer {
+        jokesViewModel.getLoading().observe(viewLifecycleOwner) {
             when (it) {
                 NetworkState.DONE,
-                NetworkState.NO_CONNECTION,
                 NetworkState.ERROR -> {
                     binding.loadingLayout.gone()
                 }
                 NetworkState.LOADING -> {
                     binding.loadingLayout.visible()
                 }
+                else -> {}
             }
-        })
+        }
 
-        jokesViewModel.getError().observe(this, Observer { error ->
+        jokesViewModel.getError().observe(viewLifecycleOwner) { error ->
             if (error.isNotEmpty()) {
                 context?.let { createDialog(it, getString(R.string.error), error) }
             }
-        })
+        }
 
-        jokesViewModel.getMyJokes().observe(this, Observer { jokes ->
+        jokesViewModel.getMyJokes().observe(viewLifecycleOwner) { jokes ->
             if (!jokes.isNullOrEmpty()) {
                 binding.tvNoJokes.gone()
                 setupRecycler()
                 adapter.setJokes(jokes)
             }
-        })
+        }
 
         setupRecycler()
     }
