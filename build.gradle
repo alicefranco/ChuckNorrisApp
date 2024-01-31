@@ -16,7 +16,8 @@ buildscript {
         material_version = '1.11.0'
         paging_version = '3.2.1'
 
-        junit_version = '4.13.2' //migrate to junit 5
+        junit_version = '4.13.2'
+        testng_version = '6.9.6'
         mockito_version = '5.10.0'
 
         test_runner_version = '1.0.2'
