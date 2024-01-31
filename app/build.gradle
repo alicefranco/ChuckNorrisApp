@@ -5,9 +5,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 34
     defaultConfig {
         applicationId "br.pprojects.chucknorrisapp"
+        compileSdk 34
         minSdkVersion 27
         targetSdkVersion 34
         versionCode 1
